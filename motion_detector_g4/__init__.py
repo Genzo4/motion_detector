@@ -4,11 +4,11 @@ import numpy
 
 class MotionDetector:
 
-    def __init__(self, minArea = 4000, maxArea = 150000, denoiseSize = 10, debug = False):
+    def __init__(self, minArea = 4000, maxArea = 150000, noiseSize = 10, debug = False):
         """
         :param minArea: Min blob size
         :param maxArea: Max blob size
-        :param denoiseSize: Max size of denoise area
+        :param noiseSize: Max size of noise area
         :param debug: Debug mod
         """
 
@@ -16,7 +16,7 @@ class MotionDetector:
 
         self.backSub = cv2.createBackgroundSubtractorMOG2(history=2, detectShadows=False)
 
-        self.denoiseKernel = numpy.ones((denoiseSize, denoiseSize), numpy.uint8)
+        self.denoiseKernel = numpy.ones((noiseSize, noiseSize), numpy.uint8)
 
         self.blobDetector = self._createBlobDetector(minArea, maxArea)
 
