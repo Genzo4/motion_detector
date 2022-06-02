@@ -74,6 +74,7 @@ class MotionDetector:
             cv2.imwrite(nextFramePath + '.mask', frameMask)
 
         # 2. Clear noises
+
         frameClear = cv2.morphologyEx(frameMask, cv2.MORPH_OPEN, self.denoiseKernel)
 
         if self.debug:
