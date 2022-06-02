@@ -26,6 +26,8 @@ def _removeTempFiles() -> None:
 
 
 def test_1():
+    _removeTempFiles()
+
     md = MotionDetector()
     md.applyFirstFrame('tests/images/01_frame_1.png')
     md.checkMotion('tests/images/01_frame_2.png')
