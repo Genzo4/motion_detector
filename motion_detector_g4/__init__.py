@@ -15,7 +15,7 @@ class MotionDetector:
 
         self.debug = debug
 
-        self.backSub = cv2.createBackgroundSubtractorMOG2(history=2, detectShadows=False)
+        self.backSub = cv2.createBackgroundSubtractorMOG2(history=1, detectShadows=False)
 
         self.denoiseKernel = numpy.ones((noiseSize, noiseSize), numpy.uint8)
 
