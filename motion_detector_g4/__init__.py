@@ -10,7 +10,7 @@ class MotionDetector:
         :param minArea: Min blob size
         :param maxArea: Max blob size
         :param noiseSize: Max size of noise area
-        :param debug: Debug mod
+        :param debug: Is debug mod
         """
 
         self.debug = debug
@@ -27,6 +27,7 @@ class MotionDetector:
 
         :param minArea: Min blob size
         :param maxArea: Max blob size
+        :rtype: SimpleBlobDetector
         :return: SimpleBlobDetector
         """
 
@@ -52,6 +53,7 @@ class MotionDetector:
     def applyFirstFrame(self, firstFramePath: str) -> None:
         """
         :param firstFramePath:
+        :rtype: None
         :return: None
         """
 
@@ -62,7 +64,8 @@ class MotionDetector:
     def checkMotion(self, nextFramePath: str) -> bool:
         """
         :param nextFramePath: Next frame for comparison
-        :return: bool
+        :rtype: bool
+        :return: Is motion
         """
 
         nextFrame = cv2.imread(nextFramePath)
@@ -106,7 +109,8 @@ class MotionDetector:
 
         :param path: Path to file
         :param ext: Added ext
-        :return: str
+        :rtype: str
+        :return: Path with added ext
         """
 
         pathExt = os.path.splitext(path)
