@@ -1,5 +1,77 @@
 # Motion Detector
 
+Python module for comparing two frames from a video for motion.
+
+***
+
+## Installation
+
+### Package Installation from PyPi
+
+```bash
+$ pip install motion-detector-g4
+```
+
+### Package Installation from Source Code
+
+The source code is available on [GitHub](https://github.com/Genzo4/motion_detector).  
+Download and install the package:
+
+```bash
+$ git clone https://github.com/Genzo4/motion_detector
+$ cd motion_detector
+$ pip3 install .
+```
+
+***
+
+## Basic usage
+
+Import:
+```python
+from motion_detector_g4 import MotionDetector
+```
+
+Create an instance of the motion detector. You can specify additional options:
+- minArea - minimum tracked change size (blob size).
+  Default value: 4000.
+- maxArea - maximum tracked change size (blob size).
+  Default value: 150000.
+- noiseSize - the maximum size of the removed noise.
+  Default value: 10.
+- debug - debug mode. If it is enabled, intermediate frames are created, 
+  showing the process of processing.
+  Default value: False.
+
+```python
+md = MotionDetector(minArea = 4000, maxArea = 150000, noiseSize = 10, debug = False)
+```
+
+The module uses the following algorithm:
+1. The first frame is being processed (method applyFirstFrame).
+![Img. 1](images/01_frame_1.png "Img. 1 - First frame")
+2. The next frame is being processed (method checkMotion):
+![Img. 2](images/01_frame_2.png "Img. 2 - Next frame")
+   - the first frame is subtracted from this frame using the module BackgroundSubtractorMOG2
+     from the library OpenCV. If debug mode is enabled, then a file is created with an additional 
+     extension "mask" with the result of the module.  
+     ![Img. 3](images/01_frame_2.mask.png "Img. 3 - Removed the background")
+   - remove noise using the morphologyEx module from the OpenCV library. This process 
+     configured using the noiseSize parameter. If debug mode is enabled, then 
+     a file is created with the additional extension "clear" with the result of the module's operation.
+     ![Img. 4](images/01_frame_2.clear.png "Img. 4 - Очистили от шума")
+   - looking for areas of motion (blobs) larger than minArea but smaller than maxArea. If debug mode is enabled, then 
+     files are created with the extension "blobs" and "blobs2" with the result of the module's operation 
+     (found areas are circled in red).
+     ![Img. 5](images/01_frame_2.blobs.png "Img. 5 - Found areas of interest")
+     ![Img. 6](images/01_frame_2.blobs2.png "Img. 6 - Found areas of interest")
+
+See the example.py file for an example of usage.
+
+***
+
+# Motion Detector
+
 Python модуль для сравнения двух кадров из видеозаписи на предмет наличия движения в них.
 
 ***
@@ -50,7 +122,7 @@ md = MotionDetector(minArea = 4000, maxArea = 150000, noiseSize = 10, debug = Fa
 В модуле используется следующий алгоритм:
 1. Подаётся на обработку первый кадр (метод applyFirstFrame).
 ![Рис. 1](images/01_frame_1.png "Рис. 1 - Первый кадр")
-2. Подаётся на обработку следующий кадр (метод checkMotion).
+2. Подаётся на обработку следующий кадр (метод checkMotion):
 ![Рис. 2](images/01_frame_2.png "Рис. 2 - следующий кадр")
    - из этого кадра "вычитается" первый кадр с помощью модуля BackgroundSubtractorMOG2
      из библиотеки OpenCV. Если включён режим отладки, то создаётся файл с добавочным
