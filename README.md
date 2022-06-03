@@ -49,22 +49,22 @@ md = MotionDetector(minArea = 4000, maxArea = 150000, noiseSize = 10, debug = Fa
 
 The module uses the following algorithm:
 1. The first frame is being processed (method applyFirstFrame).
-![Img. 1](images/01_frame_1.png "Img. 1 - First frame")
+![Img. 1](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_1.png "Img. 1 - First frame")
 2. The next frame is being processed (method checkMotion):
-![Img. 2](images/01_frame_2.png "Img. 2 - Next frame")
+![Img. 2](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.png "Img. 2 - Next frame")
    - the first frame is subtracted from this frame using the module BackgroundSubtractorMOG2
      from the library OpenCV. If debug mode is enabled, then a file is created with an additional 
      extension "mask" with the result of the module.  
-     ![Img. 3](images/01_frame_2.mask.png "Img. 3 - Removed the background")
+     ![Img. 3](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.mask.png "Img. 3 - Removed the background")
    - remove noise using the morphologyEx module from the OpenCV library. This process 
      configured using the noiseSize parameter. If debug mode is enabled, then 
      a file is created with the additional extension "clear" with the result of the module's operation.
-     ![Img. 4](images/01_frame_2.clear.png "Img. 4 - Очистили от шума")
+     ![Img. 4](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.clear.png "Img. 4 - Очистили от шума")
    - looking for areas of motion (blobs) larger than minArea but smaller than maxArea. If debug mode is enabled, then 
      files are created with the extension "blobs" and "blobs2" with the result of the module's operation 
      (found areas are circled in red).
-     ![Img. 5](images/01_frame_2.blobs.png "Img. 5 - Found areas of interest")
-     ![Img. 6](images/01_frame_2.blobs2.png "Img. 6 - Found areas of interest")
+     ![Img. 5](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.blobs.png "Img. 5 - Found areas of interest")
+     ![Img. 6](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.blobs2.png "Img. 6 - Found areas of interest")
 
 See the example.py file for an example of usage.
 
@@ -121,21 +121,21 @@ md = MotionDetector(minArea = 4000, maxArea = 150000, noiseSize = 10, debug = Fa
 
 В модуле используется следующий алгоритм:
 1. Подаётся на обработку первый кадр (метод applyFirstFrame).
-![Рис. 1](images/01_frame_1.png "Рис. 1 - Первый кадр")
+![Рис. 1](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_1.png "Рис. 1 - Первый кадр")
 2. Подаётся на обработку следующий кадр (метод checkMotion):
-![Рис. 2](images/01_frame_2.png "Рис. 2 - следующий кадр")
+![Рис. 2](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.png "Рис. 2 - следующий кадр")
    - из этого кадра "вычитается" первый кадр с помощью модуля BackgroundSubtractorMOG2
      из библиотеки OpenCV. Если включён режим отладки, то создаётся файл с добавочным
      расширением "mask" с результатом работы модуля.  
-     ![Рис. 3](images/01_frame_2.mask.png "Рис. 3 - Убрали фон")
+     ![Рис. 3](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.mask.png "Рис. 3 - Убрали фон")
    - удаляем "шум" с помощью модуля morphologyEx из библиотеки OpenCV. Данный процесс
      настраивается с помощью параметра noiseSize. Если включён режим отладки, то
      создаётся файл с добавочным расширением "clear" с результатом работы модуля.
-     ![Рис. 4](images/01_frame_2.clear.png "Рис. 4 - Очистили от шума")
+     ![Рис. 4](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.clear.png "Рис. 4 - Очистили от шума")
    - ищем области движения (blob'ы) размером больше minArea, но меньше maxArea. Если включён режим отладки, то
      создаются файлы с добавочным расширением "blobs" и "blobs2" с результатом работы модуля 
      (найденные области обводятся красными кругами).
-     ![Рис. 5](images/01_frame_2.blobs.png "Рис. 5 - Нашли интересующие области движения")
-     ![Рис. 6](images/01_frame_2.blobs2.png "Рис. 6 - Нашли интересующие области движения")
+     ![Рис. 5](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.blobs.png "Рис. 5 - Нашли интересующие области движения")
+     ![Рис. 6](https://github.com/Genzo4/motion_detector/raw/main/images/01_frame_2.blobs2.png "Рис. 6 - Нашли интересующие области движения")
 
 Пример использования см. в файле example.py
