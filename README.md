@@ -1,5 +1,9 @@
 # Motion Detector
 
+![PyPI](https://img.shields.io/pypi/v/motion-detector-g4)
+![PyPI - License](https://img.shields.io/pypi/l/motion-detector-g4)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/motion-detector-g4)
+
 Python module for comparing two frames from a video for motion.
 
 ***
