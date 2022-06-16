@@ -3,9 +3,6 @@ from motion_detector_g4 import MotionDetector
 import os
 import glob
 from itertools import chain
-import os
-import glob
-from itertools import chain
 import cv2
 
 
