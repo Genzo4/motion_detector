@@ -1,6 +1,7 @@
 from cv2 import cv2, SimpleBlobDetector
 import numpy
 import os
+from utilspy_g4 import addExt
 
 
 class MotionDetector:
@@ -75,14 +76,14 @@ class MotionDetector:
         frameMask = self.backSub.apply(nextFrame)
 
         if self.debug:
-            cv2.imwrite(self._addExt(nextFramePath, 'mask'), frameMask)
+            cv2.imwrite(addExt(nextFramePath, 'mask'), frameMask)
 
         # 2. Clear noises
 
         frameClear = cv2.morphologyEx(frameMask, cv2.MORPH_OPEN, self.denoiseKernel)
 
         if self.debug:
-            cv2.imwrite(self._addExt(nextFramePath, 'clear'), frameClear)
+            cv2.imwrite(addExt(nextFramePath, 'clear'), frameClear)
 
         # 3. Search blobs
 
@@ -95,23 +96,9 @@ class MotionDetector:
                 frameMaskWithBlobs = cv2.drawKeypoints(frameClear, blobs, numpy.array([]), (0, 0, 255),
                                                       cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-                cv2.imwrite(self._addExt(nextFramePath, 'blobs'), frameWithBlobs)
-                cv2.imwrite(self._addExt(nextFramePath, 'blobs2'), frameMaskWithBlobs)
+                cv2.imwrite(addExt(nextFramePath, 'blobs'), frameWithBlobs)
+                cv2.imwrite(addExt(nextFramePath, 'blobs2'), frameMaskWithBlobs)
 
             return True
 
         return False
-
-    @staticmethod
-    def _addExt(path: str, ext: str) -> str:
-        """
-        Add ext to path
-
-        :param path: Path to file
-        :param ext: Added ext
-        :rtype: str
-        :return: Path with added ext
-        """
-
-        pathExt = os.path.splitext(path)
-        return pathExt[0] + '.' + ext + pathExt[1]
