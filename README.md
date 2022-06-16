@@ -1,3 +1,5 @@
+![Language](https://img.shields.io/badge/English-brigthgreen)
+
 # Motion Detector
 
 ![PyPI](https://img.shields.io/pypi/v/motion-detector-g4)
@@ -74,7 +76,13 @@ See the example.py file for an example of usage.
 
 ***
 
+![Language](https://img.shields.io/badge/Русский-brigthgreen)
+
 # Motion Detector
+
+![PyPI](https://img.shields.io/pypi/v/motion-detector-g4)
+![PyPI - License](https://img.shields.io/pypi/l/motion-detector-g4)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/motion-detector-g4)
 
 Python модуль для сравнения двух кадров из видеозаписи на предмет наличия движения в них.
 
