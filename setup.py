@@ -8,7 +8,7 @@ with open(path.join(top_level_directory, 'README.md'), encoding='utf-8') as file
 
 setup(
    name='motion_detector_g4',
-   version='1.0.0',
+   version='1.0.1',
    description='Motion Detector',
    long_description=long_description,
    long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
            'Bug Tracker': 'https://github.com/Genzo4/motion_detector/issues',
        },
    classifiers=[
-      'Development Status :: 4 - Beta',
+      'Development Status :: 5 - Production/Stable',
       'Programming Language :: Python :: 3',
       'Programming Language :: Python :: 3.6',
       'Programming Language :: Python :: 3.7',
