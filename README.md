@@ -26,6 +26,7 @@ Download and install the package:
 ```bash
 $ git clone https://github.com/Genzo4/motion_detector
 $ cd motion_detector
+$ pip install -r requirements.txt
 $ pip install .
 ```
 
@@ -104,6 +105,7 @@ $ pip install motion-detector-g4
 ```bash
 $ git clone https://github.com/Genzo4/motion_detector
 $ cd motion_detector
+$ pip install -r requirements.txt
 $ pip install .
 ```
 
