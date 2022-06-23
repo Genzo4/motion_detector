@@ -1,6 +1,5 @@
 from cv2 import cv2, SimpleBlobDetector
 import numpy
-import os
 from utilspy_g4 import addExt
 
 
