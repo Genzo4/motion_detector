@@ -5,7 +5,7 @@ from utilspy_g4 import addExt
 
 class MotionDetector:
 
-    def __init__(self, minArea = 4000, maxArea = 150000, noiseSize = 10, debug = False):
+    def __init__(self, minArea: int = 4000, maxArea: int = 150000, noiseSize: int = 10, debug: bool = False):
         """
         :param minArea: Min blob size
         :param maxArea: Max blob size
