@@ -4,6 +4,7 @@ import os
 import glob
 from itertools import chain
 import cv2
+from utilspy_g4 import templatedRemoveFiles
 
 
 def _removeTempFiles() -> None:
@@ -13,13 +14,10 @@ def _removeTempFiles() -> None:
     :return: None
     """
 
-    removeFiles = glob.iglob('tests/images/*.clear.*')
-    removeFiles = chain(removeFiles, glob.iglob('tests/images/*.mask.*'))
-    removeFiles = chain(removeFiles, glob.iglob('tests/images/*.blobs.*'))
-    removeFiles = chain(removeFiles, glob.iglob('tests/images/*.blobs2.*'))
-
-    for _file in removeFiles:
-        os.remove(_file)
+    templatedRemoveFiles('tests/images/*.clear.*')
+    templatedRemoveFiles('tests/images/*.mask.*')
+    templatedRemoveFiles('tests/images/*.blobs.*')
+    templatedRemoveFiles('tests/images/*.blobs2.*')
 
 
 def test_1():
