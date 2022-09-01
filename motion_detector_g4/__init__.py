@@ -1,32 +1,33 @@
 from cv2 import cv2, SimpleBlobDetector
 import numpy
-from utilspy_g4 import addExt
+from utilspy_g4 import add_ext
 
 
 class MotionDetector:
 
-    def __init__(self, minArea: int = 4000, maxArea: int = 150000, noiseSize: int = 10, debug: bool = False):
+    def __init__(self, min_area: int = 4000, max_area: int = 150000, noise_size: int = 10, debug: bool = False):
         """
-        :param minArea: Min blob size
-        :param maxArea: Max blob size
-        :param noiseSize: Max size of noise area
+        :param min_area: Min blob size
+        :param max_area: Max blob size
+        :param noise_size: Max size of noise area
         :param debug: Is debug mod
         """
 
         self.debug = debug
 
-        self.backSub = cv2.createBackgroundSubtractorMOG2(history=1, detectShadows=False)
+        self.back_sub = cv2.createBackgroundSubtractorMOG2(history=1, detectShadows=False)
 
-        self.denoiseKernel = numpy.ones((noiseSize, noiseSize), numpy.uint8)
+        self.denoise_kernel = numpy.ones((noise_size, noise_size), numpy.uint8)
 
-        self.blobDetector = self._createBlobDetector(minArea, maxArea)
+        self.blob_detector = self._create_blob_detector(min_area, max_area)
 
-    def _createBlobDetector(self, minArea: int, maxArea: int) -> SimpleBlobDetector:
+    @staticmethod
+    def _create_blob_detector(min_area: int, max_area: int) -> SimpleBlobDetector:
         """
         Create and config OpenCV Simple Blob Detector
 
-        :param minArea: Min blob size
-        :param maxArea: Max blob size
+        :param min_area: Min blob size
+        :param max_area: Max blob size
         :rtype: SimpleBlobDetector
         :return: SimpleBlobDetector
         """
@@ -41,8 +42,8 @@ class MotionDetector:
 
         # Filter by Area
         params.filterByArea = True
-        params.minArea = minArea
-        params.maxArea = maxArea
+        params.minArea = min_area
+        params.maxArea = max_area
 
         params.filterByCircularity = False
         params.filterByConvexity = False
@@ -50,53 +51,53 @@ class MotionDetector:
 
         return cv2.SimpleBlobDetector_create(params)
 
-    def applyFirstFrame(self, firstFramePath: str) -> None:
+    def apply_first_frame(self, first_frame_path: str) -> None:
         """
-        :param firstFramePath:
+        :param first_frame_path:
         :rtype: None
         :return: None
         """
 
-        firstFrame = cv2.imread(firstFramePath)
+        first_frame = cv2.imread(first_frame_path)
 
-        self.backSub.apply(firstFrame)
+        self.back_sub.apply(first_frame)
 
-    def checkMotion(self, nextFramePath: str) -> bool:
+    def check_motion(self, next_frame_path: str) -> bool:
         """
-        :param nextFramePath: Next frame for comparison
+        :param next_frame_path: Next frame for comparison
         :rtype: bool
         :return: Is motion
         """
 
-        nextFrame = cv2.imread(nextFramePath)
+        next_frame = cv2.imread(next_frame_path)
 
         # 1. Delete background
 
-        frameMask = self.backSub.apply(nextFrame)
+        frame_mask = self.back_sub.apply(next_frame)
 
         if self.debug:
-            cv2.imwrite(addExt(nextFramePath, 'mask'), frameMask)
+            cv2.imwrite(add_ext(next_frame_path, 'mask'), frame_mask)
 
         # 2. Clear noises
 
-        frameClear = cv2.morphologyEx(frameMask, cv2.MORPH_OPEN, self.denoiseKernel)
+        frame_clear = cv2.morphologyEx(frame_mask, cv2.MORPH_OPEN, self.denoise_kernel)
 
         if self.debug:
-            cv2.imwrite(addExt(nextFramePath, 'clear'), frameClear)
+            cv2.imwrite(add_ext(next_frame_path, 'clear'), frame_clear)
 
         # 3. Search blobs
 
-        blobs = self.blobDetector.detect(frameClear)
+        blobs = self.blob_detector.detect(frame_clear)
 
         if len(blobs) > 0:
             if self.debug:
-                frameWithBlobs = cv2.drawKeypoints(nextFrame, blobs, numpy.array([]), (0, 0, 255),
-                                                      cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-                frameMaskWithBlobs = cv2.drawKeypoints(frameClear, blobs, numpy.array([]), (0, 0, 255),
-                                                      cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+                frame_with_blobs = cv2.drawKeypoints(next_frame, blobs, numpy.array([]), (0, 0, 255),
+                                                     cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+                frame_mask_with_blobs = cv2.drawKeypoints(frame_clear, blobs, numpy.array([]), (0, 0, 255),
+                                                          cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
-                cv2.imwrite(addExt(nextFramePath, 'blobs'), frameWithBlobs)
-                cv2.imwrite(addExt(nextFramePath, 'blobs2'), frameMaskWithBlobs)
+                cv2.imwrite(add_ext(next_frame_path, 'blobs'), frame_with_blobs)
+                cv2.imwrite(add_ext(next_frame_path, 'blobs2'), frame_mask_with_blobs)
 
             return True
 
