@@ -8,7 +8,7 @@ with open(path.join(top_level_directory, 'README.md'), encoding='utf-8') as file
 
 setup(
    name='motion_detector_g4',
-   version='1.1.1',
+   version='1.1.2',
    description='Motion Detector',
    long_description=long_description,
    long_description_content_type='text/markdown',
@@ -26,6 +26,7 @@ setup(
       'Programming Language :: Python :: 3.8',
       'Programming Language :: Python :: 3.9',
       'Programming Language :: Python :: 3.10',
+      'Programming Language :: Python :: 3.11',
       'License :: OSI Approved :: MIT License',
       'Operating System :: OS Independent',
       'Intended Audience :: Developers',
@@ -41,6 +42,6 @@ setup(
    keywords=['motiondetector', 'motion_detector', 'motion-detector', 'opencv', 'opencv-contrib-python', 'g4'],
    license='MIT',
    packages=['motion_detector_g4'],
-   install_requires=['opencv-contrib-python', 'numpy', 'utilspy-g4>=2.2.0'],
+   install_requires=['opencv-contrib-python==4.5.5.64', 'numpy', 'utilspy-g4>=2.2.0'],
    python_requires='>=3.6'
 )
