@@ -1,4 +1,4 @@
 opencv-contrib-python
 numpy
 pytest
-utilspy-g4>=2.0.1
+utilspy-g4>=2.2.0
