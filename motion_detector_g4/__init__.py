@@ -1,6 +1,7 @@
 from cv2 import cv2, SimpleBlobDetector
 import numpy
 from utilspy_g4 import add_ext
+from functools import singledispatchmethod
 
 
 class MotionDetector:
@@ -51,7 +52,12 @@ class MotionDetector:
 
         return cv2.SimpleBlobDetector_create(params)
 
-    def apply_first_frame(self, first_frame_path: str) -> None:
+    @singledispatchmethod
+    def apply_first_frame(self, first_frame) -> None:
+        raise NotImplementedError(f"Cannot format value of type {type(first_frame)}")
+
+    @apply_first_frame.register
+    def _(self, first_frame_path: str) -> None:
         """
         :param first_frame_path:
         :rtype: None
@@ -60,9 +66,23 @@ class MotionDetector:
 
         first_frame = cv2.imread(first_frame_path)
 
+        self.apply_first_frame(first_frame)
+
+    @apply_first_frame.register
+    def _(self, first_frame: numpy.ndarray) -> None:
+        """
+        :param first_frame:
+        :rtype: None
+        :return: None
+        """
         self.back_sub.apply(first_frame)
 
-    def check_motion(self, next_frame_path: str) -> bool:
+    @singledispatchmethod
+    def check_motion(self, next_frame) -> bool:
+        raise NotImplementedError(f"Cannot format value of type {type(next_frame)}")
+
+    @check_motion.register
+    def _(self, next_frame_path: str) -> bool:
         """
         :param next_frame_path: Next frame for comparison
         :rtype: bool
@@ -99,6 +119,26 @@ class MotionDetector:
                 cv2.imwrite(add_ext(next_frame_path, 'blobs'), frame_with_blobs)
                 cv2.imwrite(add_ext(next_frame_path, 'blobs2'), frame_mask_with_blobs)
 
+            return True
+
+        return False
+
+    @check_motion.register
+    def _(self, next_frame: numpy.ndarray) -> bool:
+
+        # 1. Delete background
+
+        frame_mask = self.back_sub.apply(next_frame)
+
+        # 2. Clear noises
+
+        frame_clear = cv2.morphologyEx(frame_mask, cv2.MORPH_OPEN, self.denoise_kernel)
+
+        # 3. Search blobs
+
+        blobs = self.blob_detector.detect(frame_clear)
+
+        if len(blobs) > 0:
             return True
 
         return False
