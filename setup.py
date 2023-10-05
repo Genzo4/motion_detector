@@ -8,7 +8,7 @@ with open(path.join(top_level_directory, 'README.md'), encoding='utf-8') as file
 
 setup(
    name='motion_detector_g4',
-   version='1.1.2',
+   version='1.2.0',
    description='Motion Detector',
    long_description=long_description,
    long_description_content_type='text/markdown',
