@@ -5,7 +5,7 @@ This document records all notable changes to
 
 ## 1.2.0 (2023-10-05)
 
-- Work with frames
+- Work with frames (numpy.ndarray)
 
 ## 1.1.0 (2022-09-01)
 
